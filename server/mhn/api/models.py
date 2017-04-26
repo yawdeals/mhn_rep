@@ -30,8 +30,7 @@ class Sensor(db.Model, APIModel):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(db.String(36), unique=True)
     name = db.Column(db.String(50))
-    created_date = db.Column(
-            db.DateTime(), default=datetime.utcnow)
+    created_date = db.Column(db.DateTime(), default=datetime.utcnow)
     ip = db.Column(db.String(15))
     hostname = db.Column(db.String(50))
     identifier = db.Column(db.String(50), unique=True)
@@ -102,20 +101,18 @@ class Rule(db.Model, APIModel):
     __tablename__ = 'rules'
 
     id = db.Column(db.Integer, primary_key=True)
-    message = db.Column(db.String(140))
-    references = db.relationship(
-            'Reference', backref='rule', lazy='dynamic')
-    classtype = db.Column(db.String(50))
+    message = db.Column(db.UnicodeText(140))
+    references = db.relationship('Reference', backref='rule', lazy='dynamic')
+    classtype = db.Column(db.UnicodeText(50))
     sid = db.Column(db.Integer)
     rev = db.Column(db.Integer)
     date = db.Column(db.DateTime(), default=datetime.utcnow)
-    rule_format = db.Column(db.String(500))
+    rule_format = db.Column(db.UnicodeText(500))
     is_active = db.Column(db.Boolean)
-    notes = db.Column(db.String(140))
+    notes = db.Column(db.UnicodeText(140))
     __table_args__ = (UniqueConstraint(sid, rev),)
 
-    def __init__(self, msg=None, classtype=None, sid=None,
-                 rev=None, date=None, rule_format=None, **args):
+    def __init__(self, msg=None, classtype=None, sid=None, rev=None, date=None, rule_format=None, **args):
         self.message = msg
         self.classtype = classtype
         self.sid = sid
@@ -132,8 +129,7 @@ class Rule(db.Model, APIModel):
         db.session.commit()
 
     def to_dict(self):
-        return dict(sid=self.sid, rev=self.rev, msg=self.message,
-                    classtype=self.classtype, is_active=self.is_active)
+        return dict(sid=self.sid, rev=self.rev, msg=self.message, classtype=self.classtype, is_active=self.is_active)
 
     def __repr__(self):
         return '<Rule>{}'.format(self.to_dict())

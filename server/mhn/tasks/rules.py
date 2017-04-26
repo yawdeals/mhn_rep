@@ -73,6 +73,6 @@ def fetch_sources():
                 rules.extend(from_buffer(resp.text))
         else:
             pass
-    app.logger.info('Bulk importing {} rules.'.format(len(rules)))
+    app.logger.info(u'Bulk importing {} rules.'.format(len(rules)))
     Rule.bulk_import(rules)
     render_rules()
