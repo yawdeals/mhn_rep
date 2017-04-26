@@ -39,8 +39,7 @@ def fetch_sources():
         resp = requests.get(src.uri, stream=stream)
         if resp.status_code == 200:
             if stream:
-                tmpdir = '/tmp/{}-{}/'.format(src.name,
-                                              datetime.utcnow().isoformat())
+                tmpdir = '/tmp/{}-{}/'.format(src.name, datetime.utcnow().isoformat())
                 os.mkdir(tmpdir)
                 ziprules = StringIO()
                 for chunk in resp.iter_content():
@@ -49,8 +48,7 @@ def fetch_sources():
                 try:
                     zrules = tarfile.open(fileobj=ziprules, mode='r:gz')
                 except tarfile.TarError as terr:
-                    app.logger.warning(
-                        'Error in rule file: {}\n{}'.format(src.uri, str(terr)))
+                    app.logger.warning('Error in rule file: {}\n{}'.format(src.uri, str(terr)))
                 else:
                     ruleslist = []
                     for member in zrules.getmembers():

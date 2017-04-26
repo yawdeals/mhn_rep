@@ -28,13 +28,13 @@ class Sensor(db.Model, APIModel):
     __tablename__ = 'sensors'
 
     id = db.Column(db.Integer, primary_key=True)
-    uuid = db.Column(db.String(36), unique=True)
-    name = db.Column(db.String(50))
+    uuid = db.Column(db.UnicodeText(36), unique=True)
+    name = db.Column(db.UnicodeText(50))
     created_date = db.Column(db.DateTime(), default=datetime.utcnow)
-    ip = db.Column(db.String(15))
-    hostname = db.Column(db.String(50))
-    identifier = db.Column(db.String(50), unique=True)
-    honeypot = db.Column(db.String(50))
+    ip = db.Column(db.UnicodeText(15))
+    hostname = db.Column(db.UnicodeText(50))
+    identifier = db.Column(db.UnicodeText(50), unique=True)
+    honeypot = db.Column(db.UnicodeText(50))
 
     def __init__(
           self, uuid=None, name=None, created_date=None, honeypot=None,
@@ -202,9 +202,9 @@ class RuleSource(db.Model, APIModel):
 
     __tablename__ = 'rule_sources'
     id = db.Column(db.Integer, primary_key=True)
-    uri = db.Column(db.String(140))
-    note = db.Column(db.String(140))
-    name = db.Column(db.String(40))
+    uri = db.Column(db.UnicodeText(140))
+    note = db.Column(db.UnicodeText(140))
+    name = db.Column(db.UnicodeText(40))
 
     def  __repr__(self):
         return '<RuleSource>{}'.format(self.to_dict())
@@ -218,9 +218,8 @@ class Reference(db.Model):
     __tablename__ = 'rule_references'
 
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(140))
-    rule_id = db.Column(db.Integer,
-                        db.ForeignKey('rules.id'))
+    text = db.Column(db.UnicodeText(140))
+    rule_id = db.Column(db.Integer, db.ForeignKey('rules.id'))
 
 
 class DeployScript(db.Model, APIModel):
@@ -234,11 +233,10 @@ class DeployScript(db.Model, APIModel):
     __tablename__ = 'deploy_scripts'
 
     id = db.Column(db.Integer, primary_key=True)
-    script = db.Column(db.String(102400))
-    date = db.Column(
-             db.DateTime(), default=datetime.utcnow)
-    notes = db.Column(db.String(140))
-    name = db.Column(db.String(140))
+    script = db.Column(db.UnicodeText(102400))
+    date = db.Column(db.DateTime(), default=datetime.utcnow)
+    notes = db.Column(db.UnicodeText(140))
+    name = db.Column(db.UnicodeText(140))
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User, uselist=False)
 
@@ -251,5 +249,4 @@ class DeployScript(db.Model, APIModel):
         return '<DeployScript>{}'.format(self.to_dict())
 
     def to_dict(self):
-        return dict(script=self.script, date=self.date, notes=self.notes,
-                    user=self.user.email, id=self.id)
+        return dict(script=self.script, date=self.date, notes=self.notes, user=self.user.email, id=self.id)

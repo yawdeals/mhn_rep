@@ -58,10 +58,8 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 mhn.logger.setLevel(logging.INFO)
-formatter = logging.Formatter(
-      '%(asctime)s -  %(pathname)s - %(message)s')
-handler = RotatingFileHandler(
-        mhn.config['LOG_FILE_PATH'], maxBytes=10240, backupCount=5)
+formatter = logging.Formatter('%(asctime)s -  %(pathname)s - %(message)s')
+handler = RotatingFileHandler(mhn.config['LOG_FILE_PATH'], maxBytes=10240, backupCount=5)
 handler.setLevel(logging.INFO)
 handler.setFormatter(formatter)
 mhn.logger.addHandler(handler)
