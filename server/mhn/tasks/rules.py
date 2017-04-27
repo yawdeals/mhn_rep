@@ -27,8 +27,7 @@ def render_rules():
 
 @celery.task
 def fetch_sources():
-    app.logger.info('Fetching sources from {} sources.'.format(
-        RuleSource.query.count()))
+    app.logger.info('Fetching sources from {} sources.'.format(RuleSource.query.count()))
     rules = []
     for src in RuleSource.query:
         # Download rules from every source.

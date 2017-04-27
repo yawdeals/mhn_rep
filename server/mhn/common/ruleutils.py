@@ -66,6 +66,7 @@ def from_buffer(rbuffer):
     Takes in a buffer with rules in plain text and
     creates a list of parsed rules in dict objects.
     """
+    rbuffer = u"{}".format(rbuffer)
     rules = []
     for r in rbuffer.split('\n'):
         if not r.startswith('#') and r.strip():
