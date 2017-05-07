@@ -127,7 +127,7 @@ class Rule(db.Model, APIModel):
         for r in refs:
             ref = Reference()
             ref.rule = self
-            ref.text = r
+            ref.text = r.decode("utf-8")
             db.session.add(ref)
         db.session.commit()
 
@@ -148,7 +148,7 @@ class Rule(db.Model, APIModel):
         rev = 'rev:{}'.format(self.rev)
         reference = ''
         for r in self.references:
-            reference += 'reference:{}; '.format(r.text)
+            reference += 'reference:{}; '.format(r.text.encode('ascii', 'ignore'))
         # Remove trailing '; ' from references.
         reference = reference[:-2]
         return self.rule_format.format(msg=msg, sid=sid, rev=rev,
