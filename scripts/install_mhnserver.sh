@@ -90,8 +90,8 @@ fi
 
 
 mkdir /mhn-flask
-chmod 755 /mhn-flask
-chown nginx /mhn-flask
+chmod 666 /mhn-flask
+chown nginx:nginx /mhn-flask
 
 cat > $NGINXCONFIG <<EOF
 server {
@@ -118,7 +118,7 @@ EOF
 
 cat > /etc/supervisor/conf.d/mhn-uwsgi.conf <<EOF 
 [program:mhn-uwsgi]
-command=$MHN_HOME/env/bin/uwsgi -s /mhn-flask/uwsgi.sock -w mhn:mhn -H $MHN_HOME/env --chmod-socket=666 -b 40960
+command=$MHN_HOME/env/bin/uwsgi -s /mhn-flask/uwsgi.sock -w mhn:mhn -H $MHN_HOME/env --chmod-socket=666 --gid nginx --uid nginx -b 40960
 directory=$MHN_HOME/server
 stdout_logfile=/var/log/mhn/mhn-uwsgi.log
 stderr_logfile=/var/log/mhn/mhn-uwsgi.err
