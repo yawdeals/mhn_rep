@@ -88,6 +88,11 @@ elif [ $OS == "RHEL" ]; then
     NGINXUSER='nginx'
 fi
 
+
+mkdir /var/run/flask
+chmod 755 /var/run/flask
+chown nginx /var/run/flask
+
 cat > $NGINXCONFIG <<EOF
 server {
     listen       80;
@@ -101,7 +106,7 @@ server {
 
     location @mhnserver {
       include uwsgi_params;
-      uwsgi_pass unix:/tmp/uwsgi.sock;
+      uwsgi_pass unix:/var/run/flask/uwsgi.sock;
     }
 
     location  /static {
@@ -113,7 +118,7 @@ EOF
 
 cat > /etc/supervisor/conf.d/mhn-uwsgi.conf <<EOF 
 [program:mhn-uwsgi]
-command=$MHN_HOME/env/bin/uwsgi -s /tmp/uwsgi.sock -w mhn:mhn -H $MHN_HOME/env --chmod-socket=666 -b 40960
+command=$MHN_HOME/env/bin/uwsgi -s /var/run/flask/uwsgi.sock -w mhn:mhn -H $MHN_HOME/env --chmod-socket=666 -b 40960
 directory=$MHN_HOME/server
 stdout_logfile=/var/log/mhn/mhn-uwsgi.log
 stderr_logfile=/var/log/mhn/mhn-uwsgi.err
