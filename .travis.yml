@@ -1,3 +1,7 @@
+# less noise while testing
+branches:
+  only:
+  - bafbomb/updates
 language: python
 python:
   - "2.7"
