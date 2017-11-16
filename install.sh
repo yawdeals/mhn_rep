@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ "$(whoami)" != "root" ]
-then
-    echo -e "You must be root to run this script"
-    exit 1
-fi
+#if [ "$(whoami)" != "root" ]
+#then
+#    echo -e "You must be root to run this script"
+#    exit 1
+#fi
 
 set -e
 set -x
