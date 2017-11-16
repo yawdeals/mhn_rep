@@ -41,7 +41,7 @@ else
     exit -1
 fi
 
-ldconfig /usr/local/lib/
+sudo ldconfig /usr/local/lib/
 
 bash install_mongo.sh
 
@@ -52,7 +52,7 @@ wget https://github.com/threatstream/hpfeeds/releases/download/libev-4.15/libev-
 tar zxvf libev-4.15.tar.gz 
 cd libev-4.15
 ./configure && make && make install
-ldconfig /usr/local/lib/
+sudo ldconfig /usr/local/lib/
 
 
 mkdir -p /opt
