@@ -25,15 +25,15 @@ ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
 WantedBy=multi-user.target
 EOF
 
-        systemctl start mongodb
-        systemctl status mongodb
-        systemctl enable mongodb
+     sudo   systemctl start mongodb
+     sudo   systemctl status mongodb
+     sudo   systemctl enable mongodb
 
     else
-        apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-        echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list
-        apt-get update
-        apt-get install -y mongodb-org
+       sudo  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+       sudo  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list
+       sudo apt-get update
+       sudo  apt-get install -y mongodb-org
     fi
 
 elif [ -f /etc/redhat-release ]; then

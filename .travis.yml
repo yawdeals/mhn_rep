@@ -1,7 +1,13 @@
+# less noise while testing
+branches:
+  only:
+  - bafbomb/updates
 language: python
 python:
   - "2.7"
 # command to install dependencies
-install: "pip install -r requirements.txt"
+#install: "pip install -r requirements.txt"
+sudo: required
+
 # command to run tests
 install: ./install.sh
