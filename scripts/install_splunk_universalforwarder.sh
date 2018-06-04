@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ref: http://docs.splunk.com/Documentation/Splunk/6.2.2/Forwarding/Deployanixdfmanually#Install_the_universal_forwarder
+# ref: http://docs.splunk.com/Documentation/Splunk/7.1.1/Forwarding/Deployanixdfmanually#Install_the_universal_forwarder
 
 if [ "$(whoami)" != "root" ]
 then
@@ -22,17 +22,17 @@ fi
 
 cd /tmp/
 
-VERSION="6.2.3"
+VERSION="7.1.1"
 if [ "$(uname -m)" == "x86_64" ] ;
 then
-	FILENAME="splunkforwarder-6.2.3-264376-linux-2.6-amd64.deb"
+	FILENAME="splunkforwarder-7.1.1-8f0ead9ec3db-linux-2.6-amd64.deb"
 	ARCH="x86_64"
 else
-	FILENAME="splunkforwarder-6.2.3-264376-linux-2.6-intel.deb"
+	FILENAME="splunkforwarder-7.1.1-8f0ead9ec3db-linux-2.6-intel.deb"
 	ARCH="x86"
 fi
 rm -f "${FILENAME}"
-wget -O "${FILENAME}" "http://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=${ARCH}&platform=Linux&version=${VERSION}&product=universalforwarder&filename=${FILENAME}&wget=true"
+wget -O "${FILENAME}" "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=${ARCH}&platform=linux&version=${VERSION}&product=universalforwarder&filename=${FILENAME}&wget=true"
 dpkg -i "${FILENAME}"
 
 SPLUNK="/opt/splunkforwarder/bin/splunk"
